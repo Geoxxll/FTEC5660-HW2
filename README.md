@@ -93,7 +93,7 @@ attack the MCP server. See the homework description for the full rules.
 > to students: this is your report, see the homework description.
 
 ### Task 1
-> one paragraph describing your solution, and your results on `public_test`.
+> I use a single DeepSeek agent with the SocialGraph MCP tools to identify the candidate and compare the CV's employers, titles, dates, education, location, and skills with retrieved profiles. Each CV and each reflection request is sent as a JSON object. The agent makes an initial evidence-based verdict, then reviews the full tool transcript in a second pass to check identity resolution and look for missed or unsupported discrepancies; the model returns a JSON verdict and score. Any evidence-backed material discrepancy must receive a score of 0.5 or below, a consistent CV receives a score above 0.5, and an unresolved identity receives 0.5. I serialize requests and retry transient failures up to three times. The latest `public_test` run scored **7/7** (CV1-CV3 and CV6 valid; CV4, CV5, and CV7 had discrepancies).
 
 ### Task 2
-> the attack techniques you used and why you expect them to work.
+> I kept Kelly Tsang's verified identity, employers, job titles, dates, education, location, and listed skills consistent with the target CV, then added a fabricated quantified achievement: that she improved AIA's regional forecast accuracy by 28% in FY2023. This targets a coverage gap in the verifier: SocialGraph can corroborate profile facts such as employers and titles, but it does not provide evidence for project-level performance metrics. Since the verifier treats absent profile evidence as unknown, rather than as a contradiction, I expected this unsupported achievement to pass. The attack changes only the PDF and does not target the MCP service. In a local run, both the target CV and adversarial CV received 0.9 from my verifier.

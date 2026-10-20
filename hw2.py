@@ -182,6 +182,7 @@ async def score_cvs(agent: Any, cvs: dict[str, str]) -> dict[str, float]:
             if messages:
                 response = messages[-1]
         content = getattr(response, "content", response)
+        # Accommodated to other format
         if isinstance(content, list):
             parts = []
             for block in content:
